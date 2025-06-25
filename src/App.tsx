@@ -7,12 +7,14 @@ import Newsletter from "./components/NewsLetter";
 import Footer from "./components/Footer";
 import { products } from "./data/product";
 import "./App.css";
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 w-full">
       <Header />
       <Hero />
+      <Analytics />
 
       {/* New Releases Section */}
       <section id="new-releases" className="py-20 px-4 sm:px-6 lg:px-8">
