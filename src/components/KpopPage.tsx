@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ProductCard from "./ProductCard";
 import { products } from "../data/product";
+import ModalPreview from "./ModalPreview";
+import type { Product } from "../types";
 
 const KpopPage: React.FC = () => {
   const [filter, setFilter] = useState<'album' | 'photocard'>('album');
+  const [preview, setPreview] = useState<Product | null>(null);
   // Filter sesuai tombol
   const displayedItems = products.filter(p =>
     filter === 'album' ? p.category === "kpop" : p.category === "photocard"
@@ -53,10 +56,13 @@ const KpopPage: React.FC = () => {
             transition={{ delay: idx * 0.1, duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <ProductCard product={item} index={idx} />
+            <ProductCard product={item} index={idx} onPreview={() => setPreview(item)} />
           </motion.div>
         ))}
       </div>
+      {preview && (
+        <ModalPreview product={preview} onClose={() => setPreview(null)} />
+      )}
     </section>
   );
 };

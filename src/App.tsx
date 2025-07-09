@@ -9,14 +9,22 @@ import Footer from "./components/Footer";
 import { products } from "./data/product";
 import "./App.css";
 import { Analytics } from "@vercel/analytics/react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import KpopPage from './components/KpopPage';
 import YugiohPage from './components/YugiohPage';
 import ContactUsPage from './components/ContactUsPage';
 import AboutPage from './components/AboutPage';
+import ModalPreview from './components/ModalPreview';
+import type { Product } from './types';
 
 function App() {
+  // Ambil 2 photocard (pc1, pc2), 2 yugioh (y5, y6), dan 2 kpop/special pertama
+  const mainReleasesBase = [
+    ...products.filter(p => p.id === 'pc1' || p.id === 'pc2' || p.id === 'y5' || p.id === 'y6'),
+    ...products.filter(p => p.category === 'kpop' || p.category === 'special').filter(p => p.id !== 'pc1' && p.id !== 'pc2').slice(0, 2)
+  ];
   const [showAllReleases, setShowAllReleases] = useState(false);
+  const [preview, setPreview] = useState<Product | null>(null);
 
   return (
     <BrowserRouter>
@@ -56,24 +64,21 @@ function App() {
                       className="text-purple-400 hover:text-purple-300 font-medium transition-colors duration-200"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => setShowAllReleases(prev => !prev)}
+                      onClick={() => setShowAllReleases(v => !v)}
                     >
                       {showAllReleases ? 'Show Less' : 'View All'}
                     </motion.button>
                   </motion.div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {(showAllReleases ? products : products.slice(0, 4))
-                      .map((product, index) => (
-                        <ProductCard
-                          key={product.id}
-                          product={product}
-                          index={index}
-                        />
-                      ))
-                    }
+                    {(showAllReleases ? mainReleasesBase : mainReleasesBase.slice(0, 4)).map((product, index) => (
+                      <ProductCard key={product.id} product={product} index={index} onPreview={() => setPreview(product)} />
+                    ))}
                   </div>
                 </div>
+                {preview && (
+                  <ModalPreview product={preview} onClose={() => setPreview(null)} />
+                )}
               </section>
 
               {/* Shop By Category Section */}

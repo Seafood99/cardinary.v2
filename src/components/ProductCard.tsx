@@ -6,9 +6,10 @@ import type { Product } from '../types';
 interface ProductCardProps {
   product: Product;
   index: number;
+  onPreview?: () => void;
 }
 
-export default function ProductCard({ product, index }: ProductCardProps) {
+export default function ProductCard({ product, index, onPreview }: ProductCardProps) {
   return (
     <motion.div
       className="group relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl p-4 border border-white/10 hover:border-purple-500/50 transition-all duration-500 overflow-hidden"
@@ -59,8 +60,9 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           <motion.img
             src={product.image}
             alt={product.name}
-            className="w-full h-48 object-cover transition-all duration-500 group-hover:scale-110"
-            whileHover={{ scale: 1.1 }}
+            className={`w-full h-48 object-cover transition-all duration-500 group-hover:scale-110 ${onPreview ? 'cursor-pointer' : ''}`}
+            whileHover={onPreview ? { scale: 1.1 } : undefined}
+            onClick={onPreview}
           />
         ) : (
           <div className="w-full h-48 bg-gray-800 flex items-center justify-center text-gray-500 text-sm">
@@ -74,6 +76,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           className="absolute bottom-2 left-1/2 transform -translate-x-1/2 translate-y-8 group-hover:translate-y-0 px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={onPreview}
+          type="button"
         >
           Quick View
         </motion.button>
@@ -111,14 +115,16 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           >
             ${product.price}
           </motion.div>
-          
-          <motion.button
-            className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 group/btn"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+          <motion.a
+            href={`https://wa.me/6282123473652?text=${encodeURIComponent(`Saya ingin beli ${product.category === 'photocard' ? 'photocard' : product.category === 'kpop' ? 'album' : ''} ${product.name} ${product.code ? product.code : ''}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg text-white font-semibold hover:brightness-110 hover:shadow-md transition-all duration-300 text-sm"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <ShoppingCart className="w-4 h-4 text-white group-hover/btn:scale-110 transition-transform duration-200" />
-          </motion.button>
+            Buy Now
+          </motion.a>
         </div>
 
         {/* Hover Effect Bottom Bar */}
