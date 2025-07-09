@@ -3,13 +3,14 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingCart, Search, User } from 'lucide-react';
 import type { MenuItem } from '../types';
+import { Link } from "react-router-dom";
 
 const menuItems: MenuItem[] = [
-  { name: 'New Releases', href: '#new-releases' },
-  { name: 'K-Pop', href: '#kpop' },
-  { name: 'Yu-Gi-Oh!', href: '#yugioh' },
-  { name: 'Contact Us', href: '#contact' },
-  { name: 'About', href: '#about' }
+  { name: 'New Releases', href: '/' },
+  { name: 'K-Pop', href: '/kpop' },
+  { name: 'Yu-Gi-Oh!', href: '/yugioh' },
+  { name: 'Contact Us', href: '/contact' },
+  { name: 'About', href: '/about' }
 ];
 
 export default function Header() {
@@ -30,9 +31,11 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              CARDINARY
-            </h1>
+            <Link to="/">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                CARDINARY
+              </h1>
+            </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -117,19 +120,16 @@ export default function Header() {
             transition={{ duration: 0.3 }}
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black/50 backdrop-blur-sm">
-              {menuItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                  onClick={() => setIsMenuOpen(false)}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ x: 10 }}
-                >
-                  {item.name}
-                </motion.a>
+              {menuItems.map((item) => (
+                <motion.div key={item.name}>
+                  <Link
+                    to={item.href}
+                    className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
               ))}
               <div className="flex items-center space-x-4 px-3 py-2">
                 <motion.button

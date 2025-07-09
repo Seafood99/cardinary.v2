@@ -55,16 +55,20 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
       {/* Product Image */}
       <div className="relative mb-4 overflow-hidden rounded-xl">
-        <motion.img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-48 object-cover transition-all duration-500 group-hover:scale-110"
-          whileHover={{ scale: 1.1 }}
-        />
-        
+        {product.image ? (
+          <motion.img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-48 object-cover transition-all duration-500 group-hover:scale-110"
+            whileHover={{ scale: 1.1 }}
+          />
+        ) : (
+          <div className="w-full h-48 bg-gray-800 flex items-center justify-center text-gray-500 text-sm">
+            No Image
+          </div>
+        )}
         {/* Image Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
         {/* Quick View Button */}
         <motion.button
           className="absolute bottom-2 left-1/2 transform -translate-x-1/2 translate-y-8 group-hover:translate-y-0 px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"

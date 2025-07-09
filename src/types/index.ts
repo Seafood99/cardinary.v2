@@ -6,7 +6,7 @@ export interface Product {
   rarity: string;
   price: number;
   image: string;
-  category: 'kpop' | 'yugioh' | 'special'; // hanya satu baris union type
+  category: 'kpop' | 'yugioh' | 'special' | 'photocard'; // tambahkan photocard
   isLimited?: boolean;
 }
 

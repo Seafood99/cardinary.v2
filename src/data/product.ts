@@ -38,5 +38,50 @@ export const products: Product[] = [
     image: '/assets/gfriend-album2.png',
     category: 'kpop',
     isLimited: true
-  }
+  },
+  {
+    id: 'pc1',
+    name: 'YUJU - GFRIEND',
+    code: 'GFRIEND - Song of the Sirens',
+    rarity: 'Limited Edition',
+    price: 8.00,
+    image: '/assets/yuju-1.jpg', // asset bisa diisi nanti
+    category: 'photocard',
+  },
+  {
+    id: 'pc2',
+    name: 'Photocard Kosong 2',
+    code: '-',
+    rarity: '-',
+    price: 0,
+    image: '',
+    category: 'photocard',
+  },
+  {
+    id: 'pc3',
+    name: 'Photocard Kosong 3',
+    code: '-',
+    rarity: '-',
+    price: 0,
+    image: '',
+    category: 'photocard',
+  },
+  {
+    id: 'pc4',
+    name: 'Photocard Kosong 4',
+    code: '-',
+    rarity: '-',
+    price: 0,
+    image: '',
+    category: 'photocard',
+  },
+  {
+    id: 'pc5',
+    name: 'Photocard Kosong 5',
+    code: '-',
+    rarity: '-',
+    price: 0,
+    image: '',
+    category: 'photocard',
+  },
 ];
